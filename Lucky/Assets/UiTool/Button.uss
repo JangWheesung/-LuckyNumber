@@ -1,0 +1,10 @@
+VisualElement {
+}
+
+.color {
+    background-color: rgba(204, 204, 204, 255);
+}
+
+.button:hover {
+    background-color: rgba(153, 153, 153, 255);
+}
