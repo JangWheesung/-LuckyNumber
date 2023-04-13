@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using FD.Dev;
 using DG.Tweening;
 
 public class InputField : MonoBehaviour
@@ -43,7 +42,7 @@ public class InputField : MonoBehaviour
         CardNumber(out r, out wt);
         StartCoroutine(CardSettingDelay(r, 0.1f));
 
-        FAED.InvokeDelay(() => { isSetting = false; }, int.Parse(maxFieldText.text) * 0.1f);
+        StartCoroutine(InvokeDelay(() => { isSetting = false; }, int.Parse(maxFieldText.text) * 0.1f));
     }
 
     void InputTry()
@@ -95,7 +94,7 @@ public class InputField : MonoBehaviour
     void CarmerShake()
     {
         noise.m_AmplitudeGain = crash;
-        FAED.InvokeDelay(() => { noise.m_AmplitudeGain = 0; }, 0.1f);
+        StartCoroutine(InvokeDelay(() => { noise.m_AmplitudeGain = 0; }, 0.1f));
     }
 
     IEnumerator CardSettingDelay(int[] r, float time)
@@ -107,5 +106,11 @@ public class InputField : MonoBehaviour
             CarmerShake();
             yield return new WaitForSeconds(time);
         }
+    }
+
+    IEnumerator InvokeDelay(Action act, float time)
+    {
+        yield return new WaitForSeconds(time);
+        act?.Invoke();
     }
 }
